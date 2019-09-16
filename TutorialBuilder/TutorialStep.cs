@@ -8,8 +8,15 @@ namespace TutorialBuilder
 {
     public class TutorialStep
     {
-        public string ElementID { get; set; }
-        public string Text { get; set; }
-        public object HtmlAttributes { get; set; }
+        public TutorialStep(string selector, string text, string title)
+        {
+            Selector = selector;
+            Text = text;
+            Title = title;
+        }
+
+        internal string Selector { get; set; }
+        internal string Title { get; set; }
+        internal string Text { get; set; }
     }
 }

@@ -1,16 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace TutorialBuilder
 {
-    public class Tutorial
+    internal class Tutorial
     {
-        public Dictionary<int, TutorialStep> Steps { get; private set; }
+        public Tutorial(IEnumerable<TutorialStep> steps, string triggerSelector)
+        {
+            Steps = steps.ToArray();
+            TriggerSelector = triggerSelector;
+        }
 
-        public string TriggerButtonID { get; set; }
-        public string FunctionName { get; set; } = "BeginTutorial";
+        public TutorialStep[] Steps { get; private set; }
+
+        public string TriggerSelector { get; set; }
+        
+        private string GetVariableDefinition()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(Steps);
+        }
+
+        public MvcHtmlString Create()
+        {
+            return new MvcHtmlString($"var tutor = new Tutorial({TriggerSelector},{GetVariableDefinition()})");
+        }
     }
 }
