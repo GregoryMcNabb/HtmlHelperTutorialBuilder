@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section navbar{
+<div class="form-inline my-2 my-lg-0">
+    <button class="btn btn-outline-success my-2 my-sm-0" id="startBtn">Start Demo</button>
+</div>
+    }
+
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section scripts{
+    <script>
+
+        
+        var stepTargets = [{ selector: '#exampleFormControlInput1', text: 'fill out this input' }, { selector: '#exampleFormControlSelect1', text: 'Select an item from this dropdown' }, { selector: '#exampleFormControlSelect2', text: 'Select an item from this dropdown' }, { selector: '#exampleFormControlTextarea1', text: 'Put text inside this textarea' }, { selector: '#submitBtn', text: 'Click submit and you are finished!' }];
+        var stepCount = 0;
+        function TutorStep() {
+            if (stepCount > 0) {
+                $(stepTargets[stepCount - 1].selector).popover('dispose');
+                $(stepTargets[stepCount - 1].selector).removeClass('shadow-lg');
+            }
+                
+            var step = stepTargets[stepCount];
+            if (!step)
+                return;
+
+
+            stepCount++;
+            var htmlText = "<p>"+ step.text + "</p>";
+            htmlText += '<button class="btn btn-secondary float-left" onclick="EndTutorial()">End</button>';
+            if (stepTargets[stepCount])
+                htmlText += '<button onclick="TutorStep()" class="btn btn-primary float-right">Next</button>';
+            var options = {
+                content: htmlText,
+                placement: 'auto',
+                title: 'Step ' + stepCount,
+                trigger: 'manual',
+                html: true,
+                sanitize: false
+            }
+            var target = $(step.selector);
+            target.popover(options);
+            target.popover('show');
+            target.focus();
+        }
+        function EndTutorial() {
+            if (stepCount > 0)
+                $(stepTargets[stepCount - 1].selector).popover('dispose');
+            stepCount = 0;
+        }
+
+        $('#startBtn').click(function () { TutorStep(); });
+    </script>
+    }
