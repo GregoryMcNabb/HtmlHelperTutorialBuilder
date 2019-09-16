@@ -1,4 +1,4 @@
-﻿
+﻿@using TutorialBuilder
 @{
     ViewBag.Title = "Index";
 }
@@ -43,6 +43,13 @@
 
 @section scripts{
     <script>
-        $('#startBtn').click(function () { TutorStep(); });
+        @Html.Tutorial("#startBtn", new List<TutorialStep>()
+   {
+       new TutorialStep("#exampleFormControlInput1", "Please fill out your email address", "Add your email address"),
+       new TutorialStep("#exampleFormControlSelect1", "Select 1 Item", ""),
+       new TutorialStep("#exampleFormControlSelect2", "Select a few items from this dropdown", ""),
+       new TutorialStep("#exampleFormControlTextarea1", "Add a description of what you are looking for", "Add a Description"),
+       new TutorialStep("#submitBtn", "Click submit to place your order!", "Last Step!"),
+   })
     </script>
     }

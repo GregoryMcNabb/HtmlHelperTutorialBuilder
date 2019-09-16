@@ -14,5 +14,11 @@ namespace TutorialBuilder
             var tutor = new Tutorial(steps, triggerSelector);
             return tutor.Create();
         }
+
+        public static MvcHtmlString Tutorial(this HtmlHelper<dynamic> helper, string triggerSelector, IEnumerable<TutorialStep> steps)
+        {
+            var tutor = new Tutorial(steps, triggerSelector);
+            return tutor.Create();
+        }
     }
 }

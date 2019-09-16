@@ -27,7 +27,7 @@ namespace TutorialBuilder
 
         public MvcHtmlString Create()
         {
-            return new MvcHtmlString($"var tutor = new Tutorial({TriggerSelector},{GetVariableDefinition()})");
+            return new MvcHtmlString($"var tutor = new Tutorial('{TriggerSelector}',{GetVariableDefinition()})");
         }
     }
 }
